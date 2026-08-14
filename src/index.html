@@ -50,6 +50,20 @@
             .nav-links {
                 display: none !important;
             }
+            #mobileMenu { display: none; }
+            #mobileMenu.open { display: block; }
+        }
+        /* Desktop keeps nav */
+        @media (min-width: 769px) {
+            #mobileMenu { display: none !important; }
+        }
+        #mobileMenuInner {
+            animation: slideDown 0.2s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         }
     </style>
 </head>
@@ -84,9 +98,23 @@
                         <a href="#about" class="hover:text-sky-400 transition-colors">Philosophy</a>
                         <a href="#contact" class="hover:text-sky-400 transition-colors">Contact</a>
                     </nav>
-                    <a href="/updates.html" class="hidden sm:inline-flex px-3 py-2 rounded-lg border border-sky-500/30 text-sky-400 hover:bg-sky-500/10 font-semibold text-[13px] transition-all mr-2">Updates</a><a href="#contact" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-[13px] sm:text-sm transition-all shadow-lg shadow-sky-500/20 whitespace-nowrap shrink-0">
+                    <a href="#contact" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-[13px] sm:text-sm transition-all shadow-lg shadow-sky-500/20 whitespace-nowrap shrink-0">
                         Get in Touch
                     </a>
+                    <button id="menuBtn" class="md:hidden ml-2 inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-700 bg-slate-900 text-slate-200" aria-label="Menu">
+                        <span id="menuIcon">☰</span>
+                        <span id="closeIcon" class="hidden">✕</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile dropdown -->
+            <div id="mobileMenu" class="md:hidden border-t border-slate-800 bg-[#0b1120]/95 backdrop-blur">
+                <div id="mobileMenuInner" class="px-4 py-4 space-y-1 max-w-7xl mx-auto">
+                    <a href="/updates.html" class="block px-4 py-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 font-bold">Updates <span class="ml-2 text-[10px] bg-sky-500 text-black px-1.5 py-0.5 rounded-full">NEW</span></a>
+                    <a href="#services" class="mobile-link block px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800">Services</a>
+                    <a href="#about" class="mobile-link block px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800">Philosophy</a>
+                    <a href="#contact" class="mobile-link block px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800">Contact</a>
+                    <a href="#contact" class="mobile-link block mt-3 w-full text-center px-4 py-3 rounded-xl bg-sky-500 text-slate-950 font-bold">Get in Touch</a>
                 </div>
             </div>
         </header>
@@ -215,6 +243,19 @@
     </div>
 
     <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        let menuOpen = false;
+        if(menuBtn){
+            menuBtn.addEventListener('click', () => {
+                menuOpen = !menuOpen;
+                mobileMenu.classList.toggle('open', menuOpen);
+                if(menuIcon && closeIcon){ menuIcon.classList.toggle('hidden', menuOpen); closeIcon.classList.toggle('hidden', !menuOpen); }
+            });
+            document.querySelectorAll('.mobile-link').forEach(l=>l.addEventListener('click', ()=>{ menuOpen=false; mobileMenu.classList.remove('open'); if(menuIcon && closeIcon){ menuIcon.classList.remove('hidden'); closeIcon.classList.add('hidden'); } }));
+        }
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let particles = []; const numParticles = 35;
