@@ -1,0 +1,290 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4K JAX 001 | IT Solutions & Advanced Technology</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#080c14',
+                        cardbg: '#111827',
+                        accent: '#38bdf8',
+                        faithgold: '#d4af37'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom subtle grid background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+        }
+
+        /* Subtle ambient glow */
+        .ambient-glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(8, 12, 20, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-sky-500 selection:text-white overflow-x-hidden relative">
+
+    <!-- Background Animation Canvas -->
+    <canvas id="bgCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- Ambient Gradients -->
+    <div class="ambient-glow top-0 left-1/4 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="ambient-glow bottom-1/3 right-10"></div>
+
+    <!-- Main Wrapper -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- Navigation -->
+        <header class="w-full border-b border-slate-800/60 backdrop-blur-md bg-darkbg/80 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-sky-400 via-indigo-300 to-slate-200 bg-clip-text text-transparent">
+                        4K <span class="text-sky-400">JAX</span>
+                    </span>
+                    <span class="hidden sm:inline-block text-xs uppercase tracking-widest text-slate-500 px-2 py-0.5 border border-slate-800 rounded">Jacksonville, FL</span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+                    <a href="#services" class="hover:text-sky-400 transition-colors">Services</a>
+                    <a href="#about" class="hover:text-sky-400 transition-colors">Philosophy</a>
+                    <a href="#contact" class="hover:text-sky-400 transition-colors">Contact</a>
+                </nav>
+                <div>
+                    <a href="#contact" class="px-5 py-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm transition-all shadow-lg shadow-sky-500/20">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="flex-grow flex items-center justify-center px-6 pt-20 pb-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Subtle Faith Hint Badge -->
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs text-slate-400 mb-8 backdrop-blur-sm shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+                    <span class="tracking-wide">Excellence in Enterprise IT &bull; Built <span title="For The Kingdom" class="cursor-help border-b border-dotted border-slate-600">4K</span></span>
+                </div>
+
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-8 leading-[1.1]">
+                    Architecting Infrastructure. <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-sky-400 via-indigo-400 to-teal-300 bg-clip-text text-transparent">Engineering Tomorrow.</span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-normal leading-relaxed">
+                    Jacksonville’s premier technology partner delivering resilient networking, robust hardware configurations, custom programming, and practical AI integrations.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold transition-all shadow-xl shadow-sky-500/20 text-center">
+                        Start a Project
+                    </a>
+                    <a href="#services" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold transition-all text-center">
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24 border-t border-slate-800/60 bg-darkbg/50 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-3">Capabilities</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Comprehensive Technical Solutions</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service 1: Networking -->
+                    <div class="p-8 rounded-2xl bg-cardbg/60 border border-slate-800/80 hover:border-sky-500/50 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Advanced Networking</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Enterprise-grade routing, switching, secure Wi-Fi deployments, and high-performance fiber network architectures.</p>
+                    </div>
+
+                    <!-- Service 2: Hardware -->
+                    <div class="p-8 rounded-2xl bg-cardbg/60 border border-slate-800/80 hover:border-sky-500/50 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Hardware Systems</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Custom servers, workstation builds, physical security infrastructure, and mission-critical hardware deployments.</p>
+                    </div>
+
+                    <!-- Service 3: Custom Programming -->
+                    <div class="p-8 rounded-2xl bg-cardbg/60 border border-slate-800/80 hover:border-sky-500/50 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Custom Programming</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Tailored software development, workflow automation tools, robust backend APIs, and full-stack integrations.</p>
+                    </div>
+
+                    <!-- Service 4: AI Integration -->
+                    <div class="p-8 rounded-2xl bg-cardbg/60 border border-slate-800/80 hover:border-sky-500/50 transition-all group">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-white mb-3">Practical AI Systems</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">Integrating artificial intelligence models and intelligent automation to optimize business operations and data processing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Philosophy Section -->
+        <section id="about" class="py-24 border-t border-slate-800/60 relative">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-3">Our Standard</h2>
+                <h3 class="text-3xl font-bold text-white mb-6">Rooted in Integrity. Driven by Excellence.</h3>
+                <p class="text-slate-400 leading-relaxed text-lg mb-8">
+                    Based in Jacksonville, Florida, 4K JAX was founded on principles of steadfast reliability, honest service, and absolute quality. Whether we are laying fiber lines, tuning enterprise servers, or engineering custom code, we approach every task with a higher standard of stewardship and craftsmanship.
+                </p>
+                <div class="inline-block p-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-500">
+                    &gt; Colossians 3:23 — Whatever you do, work at it with all your heart...
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 border-t border-slate-800/60 bg-darkbg/80 backdrop-blur-md">
+            <div class="max-w-3xl mx-auto px-6 text-center">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-3">Get Connected</h2>
+                <h3 class="text-3xl sm:text-4xl font-bold text-white mb-6">Let's Build Something Great</h3>
+                <p class="text-slate-400 mb-10">Ready to upgrade your infrastructure or launch a custom software solution? Reach out directly to our team in Jacksonville.</p>
+                
+                <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-6 p-6 rounded-2xl bg-cardbg/80 border border-slate-800 w-full max-w-xl mx-auto shadow-2xl">
+                    <div class="text-center sm:text-left">
+                        <span class="block text-xs uppercase tracking-wider text-slate-500 mb-1">Direct Inquiry</span>
+                        <a href="mailto:info@4kjax.com" class="text-xl font-bold text-sky-400 hover:underline">info@4kjax.com</a>
+                    </div>
+                    <div class="hidden sm:block h-10 w-px bg-slate-800"></div>
+                    <div class="text-center sm:text-left">
+                        <span class="block text-xs uppercase tracking-wider text-slate-500 mb-1">Location</span>
+                        <span class="text-lg font-semibold text-slate-200">Jacksonville, FL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 border-t border-slate-800/60 text-center text-xs text-slate-600">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>&copy; 2026 4K JAX LLC. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <span class="hover:text-slate-400 transition-colors">Networking</span>
+                    <span class="hover:text-slate-400 transition-colors">Hardware</span>
+                    <span class="hover:text-slate-400 transition-colors">AI & Code</span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Background Movement Script (Subtle Floating Nodes/Grid particles) -->
+    <script>
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const numParticles = 35;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 1.5 + 0.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                // Connect nearby particles with subtle lines (network vibe)
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(56, 189, 248, ${0.12 * (1 - dist / 130)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>

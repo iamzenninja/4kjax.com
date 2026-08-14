@@ -1,0 +1,2 @@
+aws s3 sync ./src s3://4kjax.com --delete --cache-control "public, max-age=31536000, immutable" --exclude "*.html" 
+aws s3 sync ./src s3://4kjax.com --delete --cache-control "public, max-age=0, must-revalidate" --include "*.html" --exclude "*"
