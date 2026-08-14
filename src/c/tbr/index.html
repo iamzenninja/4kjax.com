@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team Buck Rogers | Fishing Reports | 4kJAX</title>
+<style>
+:root{--bg:#0a0a0a;--fg:#fafafa;--muted:#a1a1aa;--card:#171717;--border:#27272a;--accent:#22c55e}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#fafafa;color:#0a0a0a}
+header{position:sticky;top:0;z-index:50;background:#000;color:#fff;border-bottom:1px solid #222}
+.hdr{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.logo{font-weight:900;letter-spacing:-0.02em;font-size:20px} .logo span{color:var(--accent)}
+nav a{color:#aaa;text-decoration:none;margin-left:18px;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}nav a:hover{color:#fff}
+.hero{background:#000;color:#fff;padding:48px 20px} .hero-inner{max-width:1200px;margin:auto}
+.hero h1{font-size: clamp(28px,5vw,52px);line-height:.95;margin:0;letter-spacing:-0.04em;font-weight:900;text-transform:uppercase}
+.hero p{color:#a1a1aa;max-width:600px;margin:16px 0 0;font-size:16px;line-height:1.5}
+.badge{display:inline-flex;background:#171717;border:1px solid #27272a;color:#22c55e;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.wrap{max-width:1200px;margin:auto;padding:24px 20px}
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:24px 0}
+.btn{appearance:none;border:1px solid #0a0a0a;background:#0a0a0a;color:#fff;padding:10px 16px;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}
+.btn.ghost{background:#fff;color:#0a0a0a;border-color:#e4e4e7}
+.meta{font-size:12px;color:#71717a;font-family:ui-monospace,monospace}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{background:#fff;border:1px solid #e4e4e7;border-radius:16px;padding:18px;transition:.15s}
+.card:hover{border-color:#0a0a0a;transform:translateY(-2px)}
+.card h2{font-size:16px;line-height:1.3;margin:0 0 8px;font-weight:800;letter-spacing:-.01em}
+.card a{color:#0a0a0a;text-decoration:none} .card a:hover{text-decoration:underline}
+.card .src{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#71717a;font-weight:700}
+.skeleton{height:120px;background:linear-gradient(90deg,#f4f4f5 25%,#e4e4e7 50%,#f4f4f5 75%);background-size:200% 100%;animation:shim 1.2s infinite;border-radius:16px}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.alert{border:1px solid #fecaca;background:#fef2f2;color:#991b1b;padding:14px;border-radius:12px;font-size:14px}
+.footer{margin-top:64px;border-top:1px solid #e4e4e7;padding:24px 0;color:#71717a;font-size:12px}
+</style>
+</head>
+<body>
+<header><div class="hdr"><div class="logo">4K<span>JAX</span></div><nav><a href="/">Home</a><a href="/c/tbr/">TBR Reports</a><a href="https://teambuckrogers.com" target="_blank">Source</a></nav></div></header>
+<div class="hero"><div class="hero-inner"><div class="badge">Live • Team Buck Rogers</div><h1>Fishing Reports<br>Jacksonville Offshore</h1><p>Scraped from teambuckrogers.com/category/fishing-report/ via Lambda /test2. Auto-refreshes.</p></div></div>
+<div class="wrap">
+<div class="toolbar"><button class="btn" id="refresh">↻ Refresh</button><button class="btn ghost" id="viewjson">View JSON</button><span class="meta" id="updated">Loading…</span></div>
+<div id="status"></div>
+<div id="grid" class="grid"></div>
+<div id="raw" style="display:none;margin-top:24px;border:1px solid #e4e4e7;border-radius:16px;padding:16px;overflow:auto;background:#fff"></div>
+<div class="footer">Data © <a href="https://teambuckrogers.com" target="_blank">Team Buck Rogers</a>. Display by 4kJAX.com. Endpoint: <code>/test2</code></div>
+</div>
+<script>
+const grid=document.getElementById('grid'), statusEl=document.getElementById('status'), updated=document.getElementById('updated'), raw=document.getElementById('raw');
+async function load(){
+  grid.innerHTML='<div class=skeleton></div><div class=skeleton></div><div class=skeleton></div><div class=skeleton></div>';
+  statusEl.innerHTML='';
+  try{
+    let res = await fetch('/test2',{cache:'no-store'});
+    if(!res.ok) res = await fetch('https://www.4kjax.com/test2',{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    window._tbr=data;
+    const reports=data.reports||[];
+    updated.textContent='Last updated: '+new Date().toLocaleString();
+    if(!reports.length){ statusEl.innerHTML='<div class=alert>No reports found — source selector may have changed.</div>'; }
+    grid.innerHTML=reports.map(r=>`<div class=card><div class=src>teambuckrogers.com</div><h2><a href="${r.link}" target="_blank" rel="noopener">${esc(r.title)}</a></h2><a href="${r.link}" target="_blank" style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Read Report →</a></div>`).join('');
+    if(data.html){ raw.style.display='block'; raw.innerHTML=data.html; }
+  }catch(e){
+    console.error(e);
+    statusEl.innerHTML='<div class=alert>Failed to load /test2: '+esc(e.message)+'<br>Check Lambda logs: aws logs tail /aws/lambda/4kjax-test2 --since 5m</div>';
+    grid.innerHTML='';
+    updated.textContent='Error at '+new Date().toLocaleString();
+  }
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]))}
+document.getElementById('refresh').onclick=load;
+document.getElementById('viewjson').onclick=()=>{ raw.style.display= raw.style.display==='none'?'block':'none'; if(window._tbr) raw.innerHTML='<pre style="white-space:pre-wrap;font-size:12px">'+esc(JSON.stringify(window._tbr,null,2))+'</pre>'; }
+load();
+</script>
+</body>
+</html>
